@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block contents %}
+    <div class="container">
+        <!-- Breadcrumb Start-->
+        <ul class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="category.html">الکترونیکی</a></li>
+        </ul>
+        <!-- Breadcrumb End-->
+        <div class="row">
+            <!--Left Part Start -->
+            <!--Left Part End -->
+            <!--Middle Part Start-->
+            <div id="content" class="col-sm-9">
+                <h1 class="title">محصولات</h1>
+                <br>
+                {% if object_list %}
+                    <div class="row products-category">
+                        {% for product in object_list %}
+                            <div class="product-layout product-grid col-lg-5ths col-md-5ths col-sm-3 col-xs-12">
+                                <div class="product-thumb">
+                                    <div class="image">{% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                                             title="{{ product.title }}" class="img-responsive">{% else %}
+                                        <img src="{% static 'image/product/ipod_shuffle_1-200x200.jpg' %}"
+                                             alt="{{ product.title }}" title="{{ product.title }}"
+                                             class="img-responsive">{% endif %}</div>
+                                    <div>
+                                        <div class="caption">
+                                            <h4><a href="{% url 'product:product_detail' product.id product.title %}">{{ product.title }}</a></h4>
+                                            <p class="description">{{ product.description }}</p>
+                                            <p class="price"><span class="price-new">98000 تومان</span> <span
+                                                    class="price-old">120000 تومان</span> <span
+                                                    class="saving">-26%</span> <span class="price-tax">بدون مالیات : 90000 تومان</span>
+                                            </p>
+                                        </div>
+                                        <div class="button-group">
+                                            <button class="btn-primary" type="button" onclick="">
+                                                <span>افزودن به سبد</span></button>
+                                            <div class="add-to-links">
+                                                <button type="button" data-toggle="tooltip" title="" onclick=""
+                                                        data-original-title="افزودن به علاقه مندی ها"><i
+                                                        class="fa fa-heart"></i> <span>افزودن به علاقه مندی ها</span>
+                                                </button>
+                                                <button type="button" data-toggle="tooltip" title="" onclick=""
+                                                        data-original-title="مقایسه این محصول"><i
+                                                        class="fa fa-exchange"></i> <span>مقایسه این محصول</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-sm-6 text-left">
+                        <ul class="pagination">
+
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">اولین صفحه</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+                                </li>
+                            {% endif %}
+
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if num >= page_obj.number|add:"-1" and num <= page_obj.number|add:"1" %}
+                                    <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+                                </li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">آخرین صفحه</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+
+                        <br>
+
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+                        | جمعاً {{ page_obj.paginator.count }} محصول
+                    </div>
+                </div>
+            </div>
+            <!--Middle Part End -->
+        </div>
+    </div>
+{% endblock %}
