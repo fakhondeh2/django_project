@@ -1,0 +1,4 @@
+staticfiles/media_root/
+.idea/
+venv/
+db.sqlite3
