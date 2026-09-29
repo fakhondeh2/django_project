@@ -24,7 +24,8 @@ from products.views import ProductsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/', include('products.urls'),name='product'),
+    # path('products/', include('products.urls'),name='products'),
+    path('products/', include('products.urls' , namespace='product')),
     path('', home, name='home'),
     path('heder', heder, name='heder'),
     path('foter', foter, name='foter'),
