@@ -3,6 +3,7 @@ import random
 from django.db import models
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
+from django.urls import reverse
 
 
 # Create your models here.
@@ -29,7 +30,7 @@ class Productmanager(models.Manager):
 
 
     def get_product_by_id(self,product_id):
-        qr = self.get_queryset().filter(id=product_id)
+        qr = self.get_queryset().filter(id=product_id,active=True)
         if qr.count()==1:
             return qr.first()
         else:
@@ -56,6 +57,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_product_detail_url(self):
+        return reverse('product:product_detail', kwargs={
+            'product_id': self.id,
+            'title': self.slug  # یا self.title، بسته به چی می‌خوای توی URL بیاد
+        })
 
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):

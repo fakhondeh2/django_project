@@ -28,7 +28,9 @@
                                              class="img-responsive">{% endif %}</div>
                                     <div>
                                         <div class="caption">
-                                            <h4><a href="{% url 'product:product_detail' product.id product.title %}">{{ product.title }}</a></h4>
+                                            <h4>
+                                                <a href="{% url 'product:product_detail' product.id product.title %}">{{ product.title }}</a>
+                                            </h4>
                                             <p class="description">{{ product.description }}</p>
                                             <p class="price"><span class="price-new">98000 تومان</span> <span
                                                     class="price-old">120000 تومان</span> <span
@@ -36,8 +38,10 @@
                                             </p>
                                         </div>
                                         <div class="button-group">
-                                            <button class="btn-primary" type="button" onclick="">
-                                                <span>افزودن به سبد</span></button>
+                                            <a href="{{ product.get_product_detail_url }}">
+                                                <button class="btn-primary" type="button" onclick=""><span>جزئیات</span></button>
+                                            </a>
+
                                             <div class="add-to-links">
                                                 <button type="button" data-toggle="tooltip" title="" onclick=""
                                                         data-original-title="افزودن به علاقه مندی ها"><i
