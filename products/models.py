@@ -1,6 +1,7 @@
 import os
 import random
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
 from django.urls import reverse
@@ -36,6 +37,10 @@ class Productmanager(models.Manager):
         else:
             return None
 
+
+    def search_product(self,query):
+        lookup = Q(title__icontains=query) | Q(description__icontains=query)
+        return self.get_queryset().filter(lookup,active=True).distinct()
 
 class Product(models.Model):
     title = models.CharField(verbose_name='عنوان')
