@@ -8,10 +8,10 @@ from .utils import unique_slug_generator
 # Create your models here.
 class Tag(models.Model):
     title=models.CharField(max_length=100,verbose_name="عنوان")
-    slug=models.SlugField(blank=True,allow_unicode=True,verbose_name="عنوان در آدرس url")
+    slug=models.SlugField(unique=True,blank=True,allow_unicode=True,verbose_name="عنوان در آدرس url")
     active=models.BooleanField(default=True, verbose_name="فعال/غیر فعال")
     time=models.DateTimeField(auto_now_add=True)
-    products=models.ManyToManyField(Product,verbose_name="اتصال به محصولات")
+    products=models.ManyToManyField(Product,blank=True,verbose_name="اتصال به محصولات")
 
 
 

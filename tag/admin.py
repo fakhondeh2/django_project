@@ -10,7 +10,7 @@ from tag.models import Tag
 
 class TagAdmin(admin.ModelAdmin):
 
-    list_display = ['__str__','title','slug', 'active','time']
+    list_display = ['__str__','id','title','slug', 'active','time']
     class Meta:
         model = Tag
 
