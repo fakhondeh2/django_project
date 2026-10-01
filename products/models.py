@@ -3,6 +3,8 @@ import random
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import pre_save
+
+from category.models import ProductCategory
 from .utils import unique_slug_generator
 from django.urls import reverse
 
@@ -50,6 +52,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image, null=True, blank=True , verbose_name='آپلود عکس')
     active = models.BooleanField(default=True , verbose_name='فعال /غیر فعال')
     date_time_added = models.DateTimeField(auto_now_add=True )
+    category=models.ManyToManyField(ProductCategory , blank=True,verbose_name="اضافه کردن دسته بندی"
+                                                                              "")
 
 
     objects = Productmanager()
