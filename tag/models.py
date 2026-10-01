@@ -6,7 +6,7 @@ from .utils import unique_slug_generator
 
 
 # Create your models here.
-class tag(models.Model):
+class Tag(models.Model):
     title=models.CharField(max_length=100,verbose_name="عنوان")
     slug=models.SlugField(blank=True,allow_unicode=True,verbose_name="عنوان در آدرس url")
     active=models.BooleanField(default=True, verbose_name="فعال/غیر فعال")
@@ -30,4 +30,4 @@ def tag_pre_save_receiver(sender, instance, *args, **kwargs):
     instance.slug = unique_slug_generator(instance, new_slug=current_slug)
 
 
-pre_save.connect(tag_pre_save_receiver,sender=tag)
+pre_save.connect(tag_pre_save_receiver,sender=Tag)

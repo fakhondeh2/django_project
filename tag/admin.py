@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tag.models import tag
+from tag.models import Tag
 
 
 # Register your models here.
@@ -12,7 +12,7 @@ class TagAdmin(admin.ModelAdmin):
 
     list_display = ['__str__','title','slug', 'active','time']
     class Meta:
-        model = tag
+        model = Tag
 
 
-admin.site.register(tag, TagAdmin)
+admin.site.register(Tag, TagAdmin)
