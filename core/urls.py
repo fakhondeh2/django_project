@@ -19,8 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from core import settings
 from core.views import home,foter,heder,contact_us,login,register,log_out
-from products.views import ProductsList
-
+from products.views import products_category_partial
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +32,7 @@ urlpatterns = [
     path('login', login, name='login'),
     path('logout', log_out, name='logout'),
     path('register', register, name='register'),
+    path('products_category_partial', products_category_partial, name='products_category_partial'),
 
 ]
 if settings.DEBUG:

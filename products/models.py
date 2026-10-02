@@ -44,6 +44,14 @@ class Productmanager(models.Manager):
         lookup = Q(title__icontains=query) | Q(description__icontains=query) | Q(tag__title__icontains=query)
         return self.get_queryset().filter(lookup,active=True).distinct()
 
+
+
+    def get_product_by_category(self,category_name):
+        return self.get_queryset().filter(category__name__iexact=category_name)
+
+
+
+
 class Product(models.Model):
     title = models.CharField(verbose_name='عنوان')
     slug = models.SlugField(unique=True, blank=True ,allow_unicode=True, verbose_name='اسلاگ')

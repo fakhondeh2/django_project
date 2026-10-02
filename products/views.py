@@ -1,19 +1,39 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
+from category.models import ProductCategory
 from .models import Product
 
 # Create your views here.
 
 
 class ProductsList(ListView):
-    model = 'ModelName'
+    model = 'Product'
     template_name = 'products_list.html'
     paginate_by = 1
 
     def get_queryset(self):
         return Product.objects.get_active_products()
 
+
+class ProductsListByCategory(ListView):
+    template_name = 'products_list.html'
+    paginate_by = 1
+
+    def get_queryset(self):
+        category_name= self.kwargs.get('category_name')
+        categoryes = ProductCategory.objects.filter(name__iexact=category_name)
+        if categoryes in None:
+            raise Http404("محصولی با این دسته بندی یافت نشد")
+        return Product.objects.get_product_by_category(category_name)
+
+
+def products_category_partial(request):
+    categoryes = ProductCategory.objects.all()
+
+    context = {"categoryes":categoryes}
+    return render(request,'',context)
 
 
 def product_detail(request, product_id,title):

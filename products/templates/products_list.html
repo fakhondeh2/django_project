@@ -1,6 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load render_partial %}
+
+
 {% block contents %}
+
     <div class="container">
         <!-- Breadcrumb Start-->
         <ul class="breadcrumb">
@@ -104,6 +108,10 @@
                 </div>
             </div>
             <!--Middle Part End -->
+        <div class="col-sm-3">
+            {% render_partial 'products_category_partial' %}
+        </div>
         </div>
     </div>
+
 {% endblock %}

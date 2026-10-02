@@ -7,7 +7,7 @@ class ProductCategory(models.Model):
     name=models.CharField(max_length=100,verbose_name="عنوان در یو از ال")
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 
