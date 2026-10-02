@@ -4,6 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import LoginForm, RegisterForm
+from slsiders.models import Slsider
 
 
 def heder(request):
@@ -18,7 +19,8 @@ def foter(request):
 
 def home(request):
     print(request.user.is_authenticated)
-    context = {}
+    sliders=Slsider.objects.all()
+    context = {"sliders":sliders}
     return render(request, 'home_page.html', context)
 
 

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django_render_partial',
     'products.apps.ProductsConfig',
     'tag.apps.TagConfig',
-    'category.apps.CategoryConfig'
+    'category.apps.CategoryConfig',
+    'slsiders.apps.SlsidersConfig'
 ]
 
 MIDDLEWARE = [
