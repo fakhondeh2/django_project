@@ -319,7 +319,7 @@
                     <!-- Slideshow Start-->
                     <div class="slideshow single-slider owl-carousel">
                         {% for slider in sliders %}
-                            <div class="item {{ forloop.first | yesno:"active,"}}"><a href="{{ slider.link }}"><img class="img-responsive" src="{{slider.image}}" alt="{{ slider.title}}"/></a></div>
+                            <div class="item {{ forloop.first | yesno:"active,"}}"><a href="{{ slider.link }}"><img class="img-responsive" src="{{ slider.image.url }}" alt="{{ slider.title}}"/></a></div>
                         {% endfor %}
                     </div>
                     <!-- Slideshow End-->
