@@ -3,28 +3,28 @@ import random
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import pre_save
-
 from category.models import ProductCategory
 from .utils import unique_slug_generator
 from django.urls import reverse
-
-
 # Create your models here.
 
+
+
+
+
+#merge defs_________________________________________________________________________________________________________________
 
 def get_file_extension(filename):
     Base_name = os.path.basename(filename)
     name, ext = os.path.splitext(Base_name)
     return name, ext
 
-
+#product defs_______________________________________________________________________________________________________________
 def upload_image(instance, filename):
     rand_name = random.randint(1, 9999999999999999999999)
     name, ext = get_file_extension(filename)
     final_name = f"{instance.id}-{instance.title}-{rand_name}{ext}"
     return f"products/{final_name}"
-
-
 
 
 class Productmanager(models.Manager):
@@ -48,6 +48,28 @@ class Productmanager(models.Manager):
 
     def get_product_by_category(self,category_name):
         return self.get_queryset().filter(category__name__iexact=category_name)
+
+
+
+#galery defs _____________________________________________________________________________________________________________________
+
+def upload_image_galery(instance, filename):
+    rand_name = random.randint(1, 9999999999999999999999)
+    name, ext = get_file_extension(filename)
+    final_name = f"galery-{instance.id}-{instance.title}-{rand_name}{ext}"
+    return f"galery/{final_name}"
+
+
+class ProductGalerymanager(models.Manager):
+
+    def get_galeryimage_product(self,product_id):
+        return self.get_queryset().filter(id=product_id,active=True)
+
+
+
+
+
+#models____________________________________________________________________________________________________________________________
 
 
 
@@ -82,9 +104,25 @@ class Product(models.Model):
         })
 
 
+class ProductGaleryImage(models.Model):
+    title=models.CharField(max_length=100,verbose_name="عنوان عکس")
+    image = models.ImageField(upload_to=upload_image, null=True, blank=True , verbose_name='آپلود عکس')
+    product=models.ForeignKey(Product , on_delete=models.CASCADE , verbose_name="انتخاب محصول")
+    active=models.BooleanField(default=True , verbose_name="فعال / غیر فعال")
+    date_time_added = models.DateTimeField(auto_now_add=True )
+
+    objects = Productmanager()
+
+
+
+
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
     current_slug = instance.slug or None
     instance.slug = unique_slug_generator(instance, new_slug=current_slug)
 
 
 pre_save.connect(product_pre_save_receiver, sender=Product)
+
+
+
+

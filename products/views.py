@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from category.models import ProductCategory
-from .models import Product
+from .models import Product , ProductGaleryImage
 
 # Create your views here.
 
@@ -37,11 +37,10 @@ def products_category_partial(request):
 
 
 def product_detail(request, product_id,title):
-    print(product_id)
-    print(title)
     product = Product.objects.get_product_by_id(product_id)
-    print(product)
-    context = {"product":product}
+    galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
+    context = {"product":product,
+               "galery":galery}
     return render(request,'product_detail.html',context)
 
 
