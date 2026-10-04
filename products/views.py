@@ -33,7 +33,7 @@ def products_category_partial(request):
     categoryes = ProductCategory.objects.all()
 
     context = {"categoryes":categoryes}
-    return render(request,'',context)
+    return render(request,'categorys_view_partial.html',context)
 
 
 def product_detail(request, product_id,title):
