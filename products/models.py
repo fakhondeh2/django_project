@@ -111,7 +111,7 @@ class ProductGaleryImage(models.Model):
     active=models.BooleanField(default=True , verbose_name="فعال / غیر فعال")
     date_time_added = models.DateTimeField(auto_now_add=True )
 
-    objects = Productmanager()
+    objects = ProductGalerymanager()
 
 
 

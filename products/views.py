@@ -38,8 +38,7 @@ def products_category_partial(request):
 
 def product_detail(request, product_id,title):
     product = Product.objects.get_product_by_id(product_id)
-    # galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
-    galery = ProductGaleryImage.objects.get.filter(product_id=product_id)
+    galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
     context = {"product":product,
                "galery":galery}
     return render(request,'product_detail.html',context)
