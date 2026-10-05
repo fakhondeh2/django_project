@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'tag.apps.TagConfig',
     'category.apps.CategoryConfig',
-    'slsiders.apps.SlsidersConfig'
+    'slsiders.apps.SlsidersConfig',
+    'contact_us.apps.ContactUsConfig'
 ]
 
 MIDDLEWARE = [

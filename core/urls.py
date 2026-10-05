@@ -18,8 +18,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from core import settings
-from core.views import home,foter,heder,contact_us,login,register,log_out
+from core.views import home,foter,heder,login,register,log_out
 from products.views import products_category_partial
+from contact_us.views import contact_us_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('heder', heder, name='heder'),
     path('foter', foter, name='foter'),
-    path('contact_us', contact_us, name='contact_us'),
+    path('contact_us', contact_us_view, name='contact_us'),
     path('login', login, name='login'),
     path('logout', log_out, name='logout'),
     path('register', register, name='register'),
