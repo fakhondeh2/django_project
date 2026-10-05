@@ -1,15 +1,22 @@
 {% extends 'base/base.html' %}
 {% load render_partial %}
 {% block contents %}
+    <!-- Bug fix: the row/col grid below has no effect without a
+         bootstrap .container as its ancestor (col widths and gutters are
+         calculated relative to it), so the page stretched past its normal
+         width and broke the site's overall balance. Wrapping it in
+         .container, like every other page template already does, fixes it. -->
+    <div class="container">
     <div class="row">
-        <!-- Categories Sidebar Start -->
-        <aside id="column-left" class="col-sm-3 hidden-xs">
-            <h3 class="subtitle">دسته ها</h3>
-            <div class="box-category">
-                {% render_partial 'products_category_partial' %}
-            </div>
-        </aside>
-        <!-- Categories Sidebar End -->
+        <!-- Bug fix: the categories sidebar (col-sm-3) was placed BEFORE the
+             main content (col-sm-9) in the markup. This is an RTL site
+             (bootstrap-rtl.css), where columns float right-to-left, so
+             whichever column comes first in the HTML ends up on the
+             rightmost side. Putting the sidebar first pushed it to the
+             right and oversized it relative to the page. The rest of the
+             project (see products_list.html) places this same sidebar
+             AFTER the main content for this exact reason, so it lands on
+             the left at its normal col-sm-3 width - moved it here to match. -->
         <div id="content" class="col-sm-9">
     <div itemscope="" itemtype="http://schema.org/محصولات">
         <h1 class="title" itemprop="name">{{ product.title }}</h1>
@@ -280,5 +287,14 @@
     {% endif %}
     <!-- Related Products End -->
         </div>
+        <!-- Categories Sidebar Start -->
+        <aside id="column-left" class="col-sm-3 hidden-xs">
+            <h3 class="subtitle">دسته ها</h3>
+            <div class="box-category">
+                {% render_partial 'products_category_partial' %}
+            </div>
+        </aside>
+        <!-- Categories Sidebar End -->
+    </div>
     </div>
 {% endblock %}
