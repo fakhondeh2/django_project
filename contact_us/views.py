@@ -13,6 +13,7 @@ def contact_us_view(request):
         email = conact_form.cleaned_data.get('email')
         message = conact_form.cleaned_data.get('message')
         new_contact = ContactUs.objects.create(fullName=fullname, email=email, message=message)
+        print(new_contact)
     context={
         "contact_form":conact_form,
     }
