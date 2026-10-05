@@ -49,6 +49,9 @@ class Productmanager(models.Manager):
     def get_product_by_category(self,category_name):
         return self.get_queryset().filter(category__name__iexact=category_name)
 
+    def get_related_products(self,category):
+        return self.get_queryset().filter(category__product=category).distinct()
+
 
 
 #galery defs _____________________________________________________________________________________________________________________
