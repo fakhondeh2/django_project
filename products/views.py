@@ -38,7 +38,8 @@ def products_category_partial(request):
 
 def product_detail(request, product_id,title):
     product = Product.objects.get_product_by_id(product_id)
-    galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
+    # galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
+    galery = ProductGaleryImage.objects.get.filter(product_id=product_id)
     context = {"product":product,
                "galery":galery}
     return render(request,'product_detail.html',context)
@@ -51,5 +52,5 @@ class SearchProducts(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query is not None:
-            return Product.objects.search(query)
+            return Product.objects.search_product(query)
         return Product.objects.get_active_products()
