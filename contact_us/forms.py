@@ -3,12 +3,14 @@ from django import forms
 
 class ContactForm(forms.Form):
     fullname = forms.CharField(
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', 'placeholder': 'Enter your full name', 'maxlength': '20'}),
+        label='نام کامل شما',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'لطفا نام کامل خود را وارد کنید', 'maxlength': '20'}),
     )
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your Email address'}),
+        label='ایمیل شما',
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'لطفا ایمیل خود را وارد کنید'}),
     )
     message = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your message'}),
+        label='پیام شما',
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'لطفا پیام خود را وارد کنید'}),
     )
