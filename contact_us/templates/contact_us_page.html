@@ -14,6 +14,11 @@
             <!--Middle Part Start-->
             <div id="content" class="col-sm-9">
                 <h1 class="title">تماس با ما</h1>
+                {% if success_message %}
+                    <div class="alert alert-success" style="margin-bottom: 20px;">
+                        <i class="fa fa-check-circle"></i> {{ success_message }}
+                    </div>
+                {% endif %}
                 <h3 class="subtitle">محل ما</h3>
                 <div class="row">
                     <div class="col-sm-3"><img src="{% static "image/product/store_location-275x180.jpg" %}"
@@ -52,7 +57,7 @@
                             {% for error in contact_form.email.errors %}
                             {% endfor %}
                         </div>
-                    <div class="form-group required">
+                        <div class="form-group required">
                             <label class="col-md-2 col-sm-3 control-label"
                                    for="input-email">{{ contact_form.email.label }}</label>
                             <div class="col-md-10 col-sm-9">
@@ -61,7 +66,7 @@
                             {% for error in contact_form.email.errors %}
                             {% endfor %}
                         </div>
-                    <div class="form-group required">
+                        <div class="form-group required">
                             <label class="col-md-2 col-sm-3 control-label"
                                    for="input-message">{{ contact_form.message.label }}</label>
                             <div class="col-md-10 col-sm-9">
