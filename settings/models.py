@@ -16,7 +16,7 @@ def get_file_extension(filename):
 def upload_image(instance, filename):
     rand_name = random.randint(1, 9999999999999999999999)
     name, ext = get_file_extension(filename)
-    final_name = f"{instance.id}-{instance.title}-{rand_name}{ext}"
+    final_name = f"{instance.id}-{rand_name}{ext}"
     return f"setting/{final_name}"
 
 
@@ -32,3 +32,12 @@ class Settings(models.Model):
     about = models.TextField(verbose_name="متن درباره ما")
     instagram = models.CharField(max_length=200,verbose_name="آدرس اینستا گرام")
     logo = models.ImageField(upload_to=upload_image, null=True, blank=True , verbose_name='لوگو مجموعه')
+
+
+
+    class Meta:
+        verbose_name = "تنظیمات"
+        verbose_name_plural = "تنظیمات"
+
+    def __str__(self):
+        return str(self.id)
