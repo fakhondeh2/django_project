@@ -118,6 +118,14 @@ class ProductGaleryImage(models.Model):
 
 
 
+    class Meta:
+        verbose_name = "عکس گالری"
+        verbose_name_plural = "عکس های گالری"
+
+    def __str__(self):
+        return self.title
+
+
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
     current_slug = instance.slug or None

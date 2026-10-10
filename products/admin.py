@@ -16,6 +16,7 @@ class ProductGaleryAdmin(admin.ModelAdmin):
         model = ProductGaleryImage
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(ProductGaleryImage, ProductGaleryAdmin)
 
 
 
