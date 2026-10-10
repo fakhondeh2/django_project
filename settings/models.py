@@ -40,4 +40,4 @@ class Settings(models.Model):
         verbose_name_plural = "تنظیمات"
 
     def __str__(self):
-        return str(self.id)
+        return "تنظیمات سایت"
