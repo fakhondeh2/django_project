@@ -32,8 +32,8 @@
                     <div class="pull-left flip left-top">
                         <div class="links">
                             <ul>
-                                <li class="mobile"><i class="fa fa-phone"></i>+21 9898777656</li>
-                                <li class="email"><a href="mailto:info@marketshop.com"><i class="fa fa-envelope"></i>info@marketshop.com</a>
+                                <li class="mobile"><i class="fa fa-phone"></i>{{ site_settings.phone }}</li>
+                                <li class="email"><a href="mailto:{{ site_settings.email }}"><i class="fa fa-envelope"></i>{{ site_settings.email }}</a>
                                 </li>
                                 <li class="wrap_custom_block hidden-sm hidden-xs"><a>بلاک سفارشی<b></b></a>
                                     <div class="dropdown-menu custom_block">
@@ -133,9 +133,15 @@
                 <div class="table-container">
                     <!-- Logo Start -->
                     <div class="col-table-cell col-lg-6 col-md-6 col-sm-12 col-xs-12 inner">
-                        <div id="logo"><a href="index.html"><img class="img-responsive"
-                                                                 src="{% static 'image/logo.png' %}"
-                                                                 title="MarketShop" alt="MarketShop"/></a></div>
+                        <div id="logo"><a href="index.html">
+                            {% if site_settings.logo %}
+                                <img class="img-responsive" src="{{ site_settings.logo.url }}"
+                                     title="MarketShop" alt="MarketShop"/>
+                            {% else %}
+                                <img class="img-responsive" src="{% static 'image/logo.png' %}"
+                                     title="MarketShop" alt="MarketShop"/>
+                            {% endif %}
+                        </a></div>
                     </div>
                     <!-- Logo End -->
                     <!-- Mini Cart Start-->
