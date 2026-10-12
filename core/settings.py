@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'category.apps.CategoryConfig',
     'slsiders.apps.SlsidersConfig',
     'contact_us.apps.ContactUsConfig',
-    'settings.apps.SettingsConfig'
+    'settings.apps.SettingsConfig',
+    'order.apps.OrderConfig'
 ]
 
 MIDDLEWARE = [
