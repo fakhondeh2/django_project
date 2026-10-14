@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from category.models import ProductCategory
 from .models import Product , ProductGaleryImage
+from order.forms import UserNewOrderForm
 
 # Create your views here.
 
@@ -38,12 +39,15 @@ def products_category_partial(request):
 
 def product_detail(request, product_id,title):
     product = Product.objects.get_product_by_id(product_id)
+    user_new_order = UserNewOrderForm(request.POST or None , initial={'product_id':product})
     galery = ProductGaleryImage.objects.get_galeryimage_product(product_id=product_id)
     related_products = Product.objects.get_related_products(category=product)
     print(related_products)
     context = {"product":product,
                "galery":galery,
-               "related_products":related_products}
+               "related_products":related_products,
+               "user_new_order":user_new_order,
+               }
     return render(request,'product_detail.html',context)
 
 
