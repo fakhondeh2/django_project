@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('products/', include('products.urls'),name='products'),
     path('products/', include('products.urls' , namespace='product')),
+    path('order/', include('order.urls' , namespace='order')),
     path('', home, name='home'),
     path('heder', heder, name='heder'),
     path('foter', foter, name='foter'),
