@@ -66,7 +66,7 @@ def upload_image_galery(instance, filename):
 class ProductGalerymanager(models.Manager):
 
     def get_galeryimage_product(self,product_id):
-        return self.get_queryset().filter(id=product_id,active=True)
+        return self.get_queryset().filter(product_id=product_id,active=True)
 
 
 
