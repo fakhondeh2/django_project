@@ -50,7 +50,7 @@ class Productmanager(models.Manager):
         return self.get_queryset().filter(category__name__iexact=category_name)
 
     def get_related_products(self,category):
-        return self.get_queryset().filter(category__product=category).distinct()
+        return self.get_queryset().filter(category__product=category, active=True).exclude(id=category.id).distinct()
 
 
 
