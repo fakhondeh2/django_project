@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% load render_partial %}
 {% block contents %}
     <!-- Bug fix: the row/col grid below has no effect without a
@@ -22,20 +23,35 @@
         <h1 class="title" itemprop="name">{{ product.title }}</h1>
         <div class="row product-info">
             <div class="col-sm-6">
-                <div class="image"><img class="img-responsive" itemprop="image" id="zoom_01"
-                                        src="{{ product.image.url }}" title="{{ product.title }}"
-                                        alt="{{ product.title }}"></div>
-            </div>
-            <div class="image-additional" id="gallery_01">
+                <div class="image">
+                    {% if product.image %}
+                        <img class="img-responsive" itemprop="image" id="zoom_01"
+                             src="{{ product.image.url }}" title="{{ product.title }}"
+                             alt="{{ product.title }}">
+                    {% else %}
+                        <img class="img-responsive" itemprop="image" id="zoom_01"
+                             src="{% static 'image/no_image.jpg' %}" title="{{ product.title }}"
+                             alt="{{ product.title }}">
+                    {% endif %}
+                </div>
+                {% comment %}
+                    The gallery thumbnails must live INSIDE this first col-sm-6, right under the
+                    main image (like the original theme). The theme's CSS gives the thumbnails box
+                    overflow:hidden, so when it was a sibling of the two columns it squeezed in
+                    beside the image and pushed the whole details column down.
+                {% endcomment %}
                 {% if galery %}
-                    {% for image_galery in galery %}
-                        <a class="thumbnail" href="#" data-zoom-image="{{ image_galery.image.url }}"
-                           data-image="{{ image_galery.image.url }}" title="{{ image_galery.title }}">
-                            <img src="{{ image_galery.image.url }}" alt="{{ image_galery.title }}"
-                                 title="{{ image_galery.title }}">
-                        </a>
-
-                    {% endfor %}
+                    <div class="image-additional" id="gallery_01">
+                        {% for image_galery in galery %}
+                            {% if image_galery.image %}
+                                <a class="thumbnail" href="#" data-zoom-image="{{ image_galery.image.url }}"
+                                   data-image="{{ image_galery.image.url }}" title="{{ image_galery.title }}">
+                                    <img src="{{ image_galery.image.url }}" alt="{{ image_galery.title }}"
+                                         title="{{ image_galery.title }}">
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 {% endif %}
             </div>
 
@@ -68,17 +84,24 @@
                     </div>
                     <div class="cart">
                         <div>
-                            <form action="/add_new_oeder" method="post">
-                            <div class="qty">
-                                <label class="control-label" for="input-quantity">تعداد</label>
-                                <input type="text" name="quantity" value="1" size="2" id="input-quantity"
-                                       class="form-control">
-                                <a class="qtyBtn plus" href="javascript:void(0);">+</a><br>
-                                <a class="qtyBtn mines" href="javascript:void(0);">-</a>
-                                <div class="clear"></div>
-                            </div>
-                            <button type="button" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد خرید</button>
-                                </form>
+                            {% comment %}
+                                Field names must match UserNewOrderForm (order/forms.py): product_id + count.
+                                action uses the URL name (order/urls.py: app 'order', name 'NewOrder'),
+                                and a POST without the csrf token is rejected with 403.
+                            {% endcomment %}
+                            <form action="{% url 'order:NewOrder' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <div class="qty">
+                                    <label class="control-label" for="input-quantity">تعداد</label>
+                                    <input type="text" name="count" value="1" size="2" id="input-quantity"
+                                           class="form-control">
+                                    <a class="qtyBtn plus" href="javascript:void(0);">+</a><br>
+                                    <a class="qtyBtn mines" href="javascript:void(0);">-</a>
+                                    <div class="clear"></div>
+                                </div>
+                                <button type="submit" id="button-cart" class="btn btn-primary btn-lg">افزودن به سبد خرید</button>
+                            </form>
                         </div>
                         <div>
                             <button type="button" class="wishlist" onclick=""><i class="fa fa-heart"></i> افزودن به
@@ -266,8 +289,13 @@
                 <div class="product-thumb">
                     <div class="image">
                         <a href="{{ related_product.get_product_detail_url }}">
-                            <img src="{{ related_product.image.url }}" alt="{{ related_product.title }}"
-                                 title="{{ related_product.title }}" class="img-responsive"/>
+                            {% if related_product.image %}
+                                <img src="{{ related_product.image.url }}" alt="{{ related_product.title }}"
+                                     title="{{ related_product.title }}" class="img-responsive"/>
+                            {% else %}
+                                <img src="{% static 'image/no_image.jpg' %}" alt="{{ related_product.title }}"
+                                     title="{{ related_product.title }}" class="img-responsive"/>
+                            {% endif %}
                         </a>
                     </div>
                     <div class="caption">
