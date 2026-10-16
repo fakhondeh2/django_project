@@ -33,3 +33,6 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return self.product.title
+
+    def product_sum_in_cart(self):
+        return self.product.price * self.count

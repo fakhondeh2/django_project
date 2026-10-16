@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -6,10 +7,10 @@ from order.models import Order
 from products.models import Product
 
 
+@login_required(login_url='/login')
 def add_new_order(request):
-    if not request.user.is_authenticated:
-        return redirect('/login')
-
+    # if not request.user.is_authenticated:
+    #     return redirect('/login')
     new_order_form = UserNewOrderForm(request.POST or None)
     if new_order_form.is_valid():
         product_id = new_order_form.cleaned_data['product_id']
@@ -28,3 +29,20 @@ def add_new_order(request):
         return redirect(product.get_product_detail_url())
 
     return redirect('/')
+
+
+
+@login_required(login_url='/login')
+def card(request):
+    context = {
+        "order" : None ,
+        "details" : None
+    }
+
+    open_order = order=Order.objects.filter(user_id=request.user.id).first()
+    if open_order is not None:
+        context['order'] = open_order
+        context['details'] = open_order.orderdetail_set.all()
+
+
+    return render(request,"cart.html",context)

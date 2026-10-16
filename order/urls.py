@@ -17,8 +17,9 @@ Including another URLconf
 app_name = 'order'
 from django.urls import path, include
 
-from order.views import add_new_order
+from order.views import add_new_order,card
 
 urlpatterns = [
     path('add_new_order', add_new_order, name='NewOrder'),
+    path('card', card, name='card'),
 ]
